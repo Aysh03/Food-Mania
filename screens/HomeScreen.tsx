@@ -15,9 +15,10 @@ import FeaturedRow from '../components/FeaturedRow';
 import {featured} from '../constants';
 
 // import { TextInput } from 'react-native-gesture-handler';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../App';
 
-
-
+type HomeProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 const HomeScreen = () => {
   return (
@@ -68,7 +69,6 @@ const HomeScreen = () => {
         {/* all the categories are here */}
 
         <Categories />
-
 
         {/* all the features are here */}
         <View className="mt-5">

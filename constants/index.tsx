@@ -256,10 +256,10 @@ export const featured: Featured = {
           image: require('../assets/images/pizzaDish.png'),
         },
 
-        // Rest of the dishes...
+    
       ],
     },
-    // Rest of the restaurants...
+
     {
                   id: 2,
                   name: 'Papa Johns',
