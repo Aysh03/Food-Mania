@@ -11,11 +11,10 @@ import {themeColors} from '../theme';
 import RestaurantCard from './RestaurantCard';
 
 interface Restaurant {
-  // Define the properties for each restaurant
-  // For example:
+
   name: string;
   rating: number;
-  // Add more properties as needed
+  
 }
 
 interface FeaturedRowProps {
@@ -24,13 +23,7 @@ interface FeaturedRowProps {
   restaurants: Restaurant[];
 }
 
-
-
-
-
-
-
-const FeaturedRow = ( {title, description, restaurants }: FeaturedRowProps) => {
+const FeaturedRow = ({title, description, restaurants}: FeaturedRowProps) => {
   return (
     <View>
       <View className="flex-row justify-between items-center px-4">
