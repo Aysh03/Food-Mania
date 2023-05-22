@@ -10,11 +10,9 @@ import React, {useEffect, useState} from 'react';
 import * as Icon from 'react-native-feather';
 import {themeColors} from '../theme';
 import {RootStackParamList} from '../App';
-import {useRoute} from '@react-navigation/native';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
+
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {featured} from '../constants';
 
 import {useDispatch, useSelector} from 'react-redux';
 import type {TypedUseSelectorHook} from 'react-redux';
@@ -22,7 +20,6 @@ import type {RootState, AppDispatch} from '../store';
 import {SelectedRestaurant} from '../slices/restaurantSlice';
 import {selectBasketItems, selectBasketTotal} from '../slices/basketSlice';
 
-// Use throughout your app instead of plain `useDispatch` and `useSelector`
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
@@ -92,7 +89,6 @@ const CartScreen = () => {
         {/* this is the pending area
  need to work on this  */}
 
- 
         {restaurant.dishes.map((dish: any, index: any) => {
           return (
             <View
