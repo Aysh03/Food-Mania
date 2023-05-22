@@ -6,9 +6,37 @@ import {useRoute} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-const CartIcon = () => {
+
+import {useDispatch, useSelector} from 'react-redux';
+import type {TypedUseSelectorHook} from 'react-redux';
+import type {RootState, AppDispatch} from '../store';
+import {SelectedRestaurant} from '../slices/restaurantSlice';
+import {selectBasketItems, selectBasketTotal} from '../slices/basketSlice';
+export const useAppDispatch: () => AppDispatch = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+
+
+
+
+
+
+const CartIcon = ():JSX.Element => {
+
   const navigation =
   useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+ 
+  const cartItems = useSelector(selectBasketItems);
+
+  // console.log(cartItems);
+  
+// if(!cartItems?.length) return;
+const cartTotal=useSelector(selectBasketTotal)
+
+
+
+
+
   return (
     <View className="absolute bottom-5 w-full z-50 ">
       <TouchableOpacity
@@ -18,13 +46,15 @@ const CartIcon = () => {
         <View
           className="p-2 px-4 rounded-full "
           style={{backgroundColor: 'rgba(255,255,255,0.3)'}}>
-          <Text className="font-extrabold text-white">3</Text>
+          <Text className="font-extrabold text-white text-lg">
+            {cartItems.length}
+          </Text>
         </View>
         <Text className='flex-1 justify-center items-center text-center font-extrabold  text-white text-lg'>
           View Cart
         </Text>
         <Text className=' font-extrabold  text-white text-lg'>
-        ₹ {23}
+        ₹ {cartTotal}
         </Text>
 
 

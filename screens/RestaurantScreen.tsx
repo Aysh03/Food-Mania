@@ -5,7 +5,6 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
- 
 } from 'react-native';
 import React from 'react';
 
@@ -22,21 +21,44 @@ import DishRow from '../components/DishRow';
 import {Dish, Restaurant} from '../constants';
 import CartIcon from '../components/CartIcon';
 import {StatusBar} from 'react-native';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { setRestaurant } from '../slices/restaurantSlice';
 // type restaurantProps = NativeStackScreenProps<RootStackParamList, 'Restaurant'>;
 
 const RestaurantScreen = () => {
+
+
   const {params} = useRoute();
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   let item: any = params;
   // console.log('restaurant: ', item);
+const dispatch=useDispatch();
+
+useEffect(()=>{
+if(item && item.id)
+{
+  dispatch(setRestaurant({...item}))
+}
+
+
+}),[]
+
+
+
+
+
+
+
+
+
   return (
     <View>
-      <CartIcon/>
+      <CartIcon />
       <StatusBar barStyle="light-content" />
       <ScrollView>
         <View className="relative">
-          
           <Image className="w-full h-72 " source={item.image} />
           <TouchableOpacity
             onPress={() => navigation.goBack()}

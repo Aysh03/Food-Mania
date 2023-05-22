@@ -2,7 +2,40 @@ import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import React from 'react';
 import {themeColors} from '../theme';
 import * as Icon from 'react-native-feather';
+
+import {useDispatch, useSelector} from 'react-redux';
+import type {TypedUseSelectorHook} from 'react-redux';
+import type {RootState, AppDispatch} from '../store';
+import {SelectedRestaurant} from '../slices/restaurantSlice';
+import {
+  addToBasket,
+  removeFromBasket,
+  selectBasketItems,
+  selectBasketItemsById,
+} from '../slices/basketSlice';
+
+export const useAppDispatch: () => AppDispatch = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+
 const DishRow = ({item}: {item: any}) => {
+  const dispatch = useDispatch();
+
+  // const totalItems = useSelector(state =>
+  //   selectBasketItemsById(state, item.id),
+  // );
+
+  const totalItems = useSelector((state: RootState) =>
+    selectBasketItemsById(state, item.id),
+  );
+
+  const handleIncrease = () => {
+    dispatch(addToBasket({...item}));
+  };
+
+  const handleDecrease = () => {
+    dispatch(removeFromBasket({id: item.id}));
+  };
+
   return (
     <View className="flex-row items-center bg-gray-100 p-3 rounded-3xl shadow-2xl mb-2 mx-2">
       <Image
@@ -20,6 +53,7 @@ const DishRow = ({item}: {item: any}) => {
           <Text className="text-gray-700 text-lg font-bold">₹{item.price}</Text>
           <View className="flex-row items-center">
             <TouchableOpacity
+              disabled={!totalItems.length}
               className="p-1 rounded-full"
               style={{backgroundColor: themeColors.bgColor(1)}}>
               <Icon.Minus
@@ -27,12 +61,14 @@ const DishRow = ({item}: {item: any}) => {
                 height={20}
                 width={20}
                 color={'white'}
+                onPress={handleDecrease}
               />
             </TouchableOpacity>
-            <Text className="px-3">{2}</Text>
+            <Text className="px-3">{totalItems.length}</Text>
             <TouchableOpacity
               className="p-1 rounded-full"
-              style={{backgroundColor: themeColors.bgColor(1)}}>
+              style={{backgroundColor: themeColors.bgColor(1)}}
+              onPress={handleIncrease}>
               <Icon.Plus
                 strokeWidth={2}
                 height={20}

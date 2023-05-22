@@ -6,7 +6,7 @@ import {
   Image,
   ScrollView,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import * as Icon from 'react-native-feather';
 import {themeColors} from '../theme';
 import {RootStackParamList} from '../App';
@@ -16,11 +16,39 @@ import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {featured} from '../constants';
 
+import {useDispatch, useSelector} from 'react-redux';
+import type {TypedUseSelectorHook} from 'react-redux';
+import type {RootState, AppDispatch} from '../store';
+import {SelectedRestaurant} from '../slices/restaurantSlice';
+import {selectBasketItems, selectBasketTotal} from '../slices/basketSlice';
+
+// Use throughout your app instead of plain `useDispatch` and `useSelector`
+export const useAppDispatch: () => AppDispatch = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
+
 const CartScreen = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const restaurant = featured.restaurants[0];
+  // const restaurant = featured.restaurants[0];
+
+  const cartItems = useSelector(selectBasketItems);
+  const cartTotal = useSelector(selectBasketTotal);
+  const restaurant = useSelector(SelectedRestaurant);
+
+  const [groupedItems, setGroupedItems] = useState();
+  useEffect(() => {
+    const items = cartItems.reduce((group, item) => {
+      if (group[item.id]) {
+        group[item.id].push(item);
+      } else {
+        group[item.id] = [item];
+      }
+      return group;
+    }, {});
+    setGroupedItems(items);
+  }, [cartItems]);
+
   return (
     <View className="bg-white flex-1">
       <View className="relative py-4 shadow-sm ">
@@ -61,7 +89,11 @@ const CartScreen = () => {
           paddingBottom: 50,
         }}
         className="bg-white pt-5 ">
-        {restaurant.dishes.map((dish, index) => {
+        {/* this is the pending area
+ need to work on this  */}
+
+ 
+        {restaurant.dishes.map((dish: any, index: any) => {
           return (
             <View
               key={index}
@@ -126,6 +158,9 @@ export default CartScreen;
 
 const styles = StyleSheet.create({});
 
+function state(state: unknown): unknown {
+  throw new Error('Function not implemented.');
+}
 // const {params} = useRoute();
 // const navigation =
 //   useNavigation<NativeStackNavigationProp<RootStackParamList>>();
