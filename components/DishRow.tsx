@@ -23,7 +23,7 @@ const DishRow = ({item}: {item: any}) => {
   // const totalItems = useSelector(state =>
   //   selectBasketItemsById(state, item.id),
   // );
-
+  console.log('hello world!');
   const totalItems = useSelector((state: RootState) =>
     selectBasketItemsById(state, item.id),
   );

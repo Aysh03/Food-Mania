@@ -20,6 +20,7 @@ export type RootStackParamList = {
   OrderPreparing: undefined;
   Delivery: undefined;
 };
+
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const App = () => {
   return (

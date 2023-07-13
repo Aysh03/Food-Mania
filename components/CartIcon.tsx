@@ -15,32 +15,21 @@ import {selectBasketItems, selectBasketTotal} from '../slices/basketSlice';
 export const useAppDispatch: () => AppDispatch = useDispatch;
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;
 
-
-
-
-
-
-const CartIcon = ():JSX.Element => {
-
+const CartIcon = (): JSX.Element => {
   const navigation =
-  useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
- 
   const cartItems = useSelector(selectBasketItems);
 
   // console.log(cartItems);
-  
-// if(!cartItems?.length) return;
-const cartTotal=useSelector(selectBasketTotal)
 
-
-
-
+  // if(!cartItems?.length) return;
+  const cartTotal = useSelector(selectBasketTotal);
 
   return (
     <View className="absolute bottom-5 w-full z-50 ">
       <TouchableOpacity
-       onPress={() => navigation.navigate('Cart')}
+        onPress={() => navigation.navigate('Cart')}
         style={{backgroundColor: themeColors.bgColor(1)}}
         className="flex-row justify-between items-center p-4 py-3  mx-5 rounded-full shadow-lg ">
         <View
@@ -50,15 +39,12 @@ const cartTotal=useSelector(selectBasketTotal)
             {cartItems.length}
           </Text>
         </View>
-        <Text className='flex-1 justify-center items-center text-center font-extrabold  text-white text-lg'>
+        <Text className="flex-1 justify-center items-center text-center font-extrabold  text-white text-lg">
           View Cart
         </Text>
-        <Text className=' font-extrabold  text-white text-lg'>
-        ₹ {cartTotal}
+        <Text className=" font-extrabold  text-white text-lg">
+          ₹ {cartTotal}
         </Text>
-
-
-
       </TouchableOpacity>
     </View>
   );
